@@ -19,6 +19,9 @@ public class GoogleBooksService implements BookService {
     private static final String API_KEY = "AIzaSyASQf5eYBl8H1ewOAZ_W8ynTSfxv39xwy8";
     private static final String BASE_URL = "https://www.googleapis.com/books/v1/volumes";
 
+    // Сколько результатов запрашивать у API за один раз (максимум 40)
+    private static final int MAX_RESULTS = 40;
+
     private final HttpClient httpClient;
     private final ObjectMapper objectMapper;
 
@@ -30,8 +33,10 @@ public class GoogleBooksService implements BookService {
     @Override
     public List<BookInfo> searchBooks(String query) throws Exception {
         String encodedQuery = URLEncoder.encode(query, StandardCharsets.UTF_8);
-        String url = BASE_URL + "?q=" + encodedQuery;
-        if (!API_KEY.isEmpty()) {
+
+        // Запрашиваем максимум результатов, чтобы было что фильтровать
+        String url = BASE_URL + "?q=" + encodedQuery + "&maxResults=" + MAX_RESULTS;
+        if (API_KEY != null && !API_KEY.isEmpty()) {
             url += "&key=" + API_KEY;
         }
 
@@ -47,7 +52,28 @@ public class GoogleBooksService implements BookService {
             throw new RuntimeException("Ошибка запроса: HTTP " + response.statusCode());
         }
 
-        return parseBooks(response.body());
+        // Парсим все результаты, затем фильтруем по подстроке в названии
+        List<BookInfo> all = parseBooks(response.body());
+        return filterByTitleSubstring(all, query);
+    }
+
+    /**
+     * Оставляет только книги, в названии которых есть заданная подстрока
+     * (без учёта регистра).
+     */
+    private List<BookInfo> filterByTitleSubstring(List<BookInfo> books, String substring) {
+        if (substring == null || substring.isBlank()) {
+            return books;
+        }
+        String needle = substring.toLowerCase();
+        List<BookInfo> result = new ArrayList<>();
+        for (BookInfo book : books) {
+            String title = book.getTitle();
+            if (title != null && title.toLowerCase().contains(needle)) {
+                result.add(book);
+            }
+        }
+        return result;
     }
 
     private List<BookInfo> parseBooks(String json) throws Exception {
