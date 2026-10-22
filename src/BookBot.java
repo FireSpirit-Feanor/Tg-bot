@@ -29,7 +29,7 @@ public class BookBot {
         // Регистрируем обработчики команд
         handlers.add(new GenresHandler(reader, writer));
         handlers.add(new BestBooksHandler(reader, writer));
-        handlers.add(new SearchHandler(reader, writer));
+        handlers.add(new SearchHandler(reader, writer, bookService));
     }
     // Показать главное меню
     private void showMainMenu() {
