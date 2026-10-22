@@ -9,6 +9,8 @@ import handlers.SearchHandler;
 import interfaces.BotReader;
 import interfaces.BotWriter;
 import interfaces.CommandHandler;
+import services.GoogleBooksService;
+import interfaces.BookService;
 // Главный класс бота
 public class BookBot {
     
@@ -21,7 +23,9 @@ public class BookBot {
         this.reader = reader;
         this.writer = writer;
         this.handlers = new ArrayList<>();
-        
+
+        BookService bookService = new GoogleBooksService();
+
         // Регистрируем обработчики команд
         handlers.add(new GenresHandler(reader, writer));
         handlers.add(new BestBooksHandler(reader, writer));
