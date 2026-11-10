@@ -3,12 +3,8 @@ package console;
 import java.util.Scanner;
 
 public class ConsoleReader implements BotReader {
-    
-    private Scanner scanner;
-    
-    public ConsoleReader() {
-        this.scanner = new Scanner(System.in);
-    }
+
+    private final Scanner scanner = new Scanner(System.in);
     
     @Override
     public String readInput() {
