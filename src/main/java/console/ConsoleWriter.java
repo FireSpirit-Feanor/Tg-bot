@@ -1,7 +1,5 @@
 package console;
 
-import interfaces.BotWriter;
-
 public class ConsoleWriter implements BotWriter {
     
     @Override

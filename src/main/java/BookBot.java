@@ -6,11 +6,11 @@ import console.ConsoleWriter;
 import handlers.BestBooksHandler;
 import handlers.GenresHandler;
 import handlers.SearchHandler;
-import interfaces.BotReader;
-import interfaces.BotWriter;
-import interfaces.CommandHandler;
+import console.BotReader;
+import console.BotWriter;
+import handlers.CommandHandler;
 import services.GoogleBooksService;
-import interfaces.BookService;
+import services.BookService;
 // Главный класс бота
 public class BookBot {
     

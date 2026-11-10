@@ -1,9 +1,8 @@
 package handlers;
 
-import interfaces.BookService;
-import interfaces.BotReader;
-import interfaces.BotWriter;
-import interfaces.CommandHandler;
+import services.BookService;
+import console.BotReader;
+import console.BotWriter;
 import model.BookInfo;
 
 import java.util.List;

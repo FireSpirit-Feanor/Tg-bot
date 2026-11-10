@@ -1,4 +1,4 @@
-package interfaces;
+package console;
 
 public interface BotReader {
     String readInput();

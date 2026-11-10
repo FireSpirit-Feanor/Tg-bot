@@ -1,4 +1,4 @@
-package interfaces;
+package services;
 
 import model.BookInfo;
 import java.util.List;

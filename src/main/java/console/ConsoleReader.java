@@ -1,6 +1,5 @@
 package console;
 
-import interfaces.BotReader;
 import java.util.Scanner;
 
 public class ConsoleReader implements BotReader {

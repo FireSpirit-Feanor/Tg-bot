@@ -2,7 +2,6 @@ package services;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import interfaces.BookService;
 import model.BookInfo;
 
 import java.net.URI;
@@ -16,7 +15,7 @@ import java.util.List;
 
 public class GoogleBooksService implements BookService {
 
-    private static final String API_KEY = "AIzaSyASQf5eYBl8H1ewOAZ_W8ynTSfxv39xwy8";
+    private static final String API_KEY = System.getenv("GOOGLE_BOOKS_API_KEY");
     private static final String BASE_URL = "https://www.googleapis.com/books/v1/volumes";
 
     // Сколько результатов запрашивать у API за один раз (максимум 40)

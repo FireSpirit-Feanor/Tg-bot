@@ -1,8 +1,7 @@
 package handlers;
 
-import interfaces.BotReader;
-import interfaces.BotWriter;
-import interfaces.CommandHandler;
+import console.BotReader;
+import console.BotWriter;
 
 public class GenresHandler implements CommandHandler {
     
