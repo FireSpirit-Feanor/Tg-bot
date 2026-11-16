@@ -23,10 +23,11 @@ public class BookBot {
         this.writer = writer;
         this.handlers = new LinkedHashMap<>();
 
+        // Создаём сервис ОДИН раз и передаём всем хэндлерам
         BookService bookService = new GoogleBooksService();
 
-        handlers.put(1, new GenresHandler(reader, writer));
-        handlers.put(2, new BestBooksHandler(reader, writer));
+        handlers.put(1, new GenresHandler(reader, writer, bookService));
+        handlers.put(2, new BestBooksHandler(reader, writer, bookService));
         handlers.put(3, new SearchHandler(reader, writer, bookService));
     }
 
