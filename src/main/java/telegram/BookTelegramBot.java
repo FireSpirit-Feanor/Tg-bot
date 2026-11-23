@@ -1,6 +1,7 @@
 package telegram;
 
 import bot.BookBot;
+import org.telegram.telegrambots.bots.DefaultBotOptions;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
@@ -19,6 +20,13 @@ public class BookTelegramBot extends TelegramLongPollingBot {
     private final BlockingQueue<UserTask> taskQueue = new LinkedBlockingQueue<>();
     private final Map<Long, TelegramBotReader> readers = new ConcurrentHashMap<>();
     private final AtomicBoolean workerStarted = new AtomicBoolean(false);
+    public BookTelegramBot() {
+        super();
+    }
+
+    public BookTelegramBot(DefaultBotOptions options) {
+        super(options);
+    }
 
     private void ensureWorkerStarted() {
         if (workerStarted.compareAndSet(false, true)) {
