@@ -1,6 +1,8 @@
 package bot;
 
 import console.BotReader;
+import handlers.ReviewHandler;
+import services.ReviewService; 
 import console.BotWriter;
 import handlers.CommandHandler;
 import handlers.BestBooksHandler;
@@ -24,10 +26,12 @@ public class BookBot {
         this.handlers = new LinkedHashMap<>();
 
         BookService bookService = new GoogleBooksService();
-
-        handlers.put(1, new GenresHandler(reader, writer));
-        handlers.put(2, new BestBooksHandler(reader, writer));
+        ReviewService reviewService = new ReviewService(); 
+        
+        handlers.put(1, new GenresHandler(reader, writer, bookService));
+        handlers.put(2, new BestBooksHandler(reader, writer, bookService));
         handlers.put(3, new SearchHandler(reader, writer, bookService));
+        handlers.put(4, new ReviewHandler(reader, writer, reviewService));
     }
 
     private void showMainMenu() {
