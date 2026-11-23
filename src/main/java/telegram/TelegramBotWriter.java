@@ -6,16 +6,25 @@ import org.telegram.telegrambots.meta.bots.AbsSender;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 public class TelegramBotWriter implements BotWriter {
+
+    private static final String FAREWELL = "Пока! До новых встреч.";
+
     private final AbsSender bot;
     private final long chatId;
+    private final SessionControl control;
 
-    public TelegramBotWriter(AbsSender bot, long chatId) {
+    public TelegramBotWriter(AbsSender bot, long chatId, SessionControl control) {
         this.bot = bot;
         this.chatId = chatId;
+        this.control = control;
     }
 
     @Override
     public void write(String message) {
+        if (control.consumeTimedOut() && FAREWELL.equals(message)) {
+            return;
+        }
+
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(String.valueOf(chatId));
         sendMessage.setText(message);
